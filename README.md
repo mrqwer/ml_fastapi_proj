@@ -37,13 +37,15 @@ uvicorn main:app --reload
 ```
 
 ## Go to the Documentation
+Try to upload png images and get the predictions of them
 http://127.0.0.1:8000/docs
+## API endpoints
+- /upload - for uploading multiple image files
+- /predict - for predicting previous uploaded images based on pretrained ResNet50 model.
+
+
 
 ## To perform testing, run
 ```bash
 pytest main.py
 ```
-
-## API endpoints
-- /upload - for uploading multiple image files
-- /predict - for predicting previous uploaded images based on pretrained ResNet50 model.
