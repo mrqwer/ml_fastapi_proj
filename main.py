@@ -1,22 +1,20 @@
 import uvicorn
 import shutil
 from fastapi import FastAPI, UploadFile, File
-from fastapi.responses import JSONResponse
+from typing import List
 
 from model.helpers import existsImageDirectoryOrCreate, existsAnyFile
-from model.model import get_model_predictions
+from model.model  import get_model_predictions
+from worker import working
 
 import os
-from typing import List, Union
-
-from worker import working
 
 app = FastAPI(debug=True)
 
 UPLOAD_FOLDER = "./model/imgs"
 
 @app.post("/upload")
-async def upload_image(files: List[UploadFile] = File(...)):
+def upload_image(files: List[UploadFile] = File(...)):
     if not existsImageDirectoryOrCreate(create=True):
         working(UPLOAD_FOLDER)
     response = []
@@ -38,7 +36,7 @@ async def upload_image(files: List[UploadFile] = File(...)):
     return response
 
 @app.get("/predict")
-async def predict():
+def predict():
     if not existsImageDirectoryOrCreate(create=True):
         working(UPLOAD_FOLDER)
     if not existsAnyFile():

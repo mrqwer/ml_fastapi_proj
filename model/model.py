@@ -1,7 +1,7 @@
 import tensorflow as tf
 import os
-from model.helpers import existsImageDirectoryOrCreate, existsAnyFile
-from model.preprocess import process_images
+from .helpers import existsImageDirectoryOrCreate, existsAnyFile
+from .preprocess import process_images
 import glob as glob
 
 SIZE = 224
