@@ -1,0 +1,7 @@
+venv
+.ipynb_*
+*.swp
+*.un~
+__pycache__
+imgs
+.pytest_cache
