@@ -1,7 +1,5 @@
 from fastapi.testclient import TestClient
 from .main import app
-import pytest
-
 
 DIRECTORY_FOR_TEST = "./images"
 

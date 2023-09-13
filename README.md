@@ -33,7 +33,7 @@ pip install -r requirements.txt
 
 Run the service
 ```bash
-uvicorn main:app --reload
+uvicorn main:ml_app --reload
 ```
 
 ## Go to the Documentation
