@@ -1,8 +1,8 @@
 import tensorflow as tf
 
 
-def process_images(model, image_paths, size, preprocess_input, top_k=2) -> dict:
-    d = {}
+def process_images(model, image_paths, size, preprocess_input, top_k) -> list:
+    result = []
     for idx, image_path in enumerate(image_paths):
         # Read the image using TensorFlow.
         tf_image = tf.io.read_file(image_path)
@@ -26,13 +26,18 @@ def process_images(model, image_paths, size, preprocess_input, top_k=2) -> dict:
 
         if top_k > 5:
             top_k = 5
-
-        subdict = {}
-
+        prediction = []
         for jdx in range(top_k):
-            subdict[f"top {jdx + 1}"] = jdx + 1
-            subdict[f"class {jdx + 1} description"] = decoded_preds[0][jdx][1]
-            subdict[f"probability of class {jdx + 1}"] = "{:.2f}%".format(float(decoded_preds[0][jdx][2]) * 100)
-        d[f"Image {idx + 1}"] = subdict
+            subdict = {
+                f"top": jdx + 1,
+                f"description": decoded_preds[0][jdx][1],
+                f"probability": "{:.2f}%".format(float(decoded_preds[0][jdx][2]) * 100)
+            }
+            prediction.append(subdict)
+        d = {
+            "image_number": idx + 1,
+            "prediction": prediction
+        }
+        result.append(d)
 
-    return d
+    return result

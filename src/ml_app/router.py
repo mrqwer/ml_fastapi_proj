@@ -1,10 +1,11 @@
 from typing import List
 
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, UploadFile, File, Query
 
 from .ml import get_model_predictions
 from .service import existsImageDirectoryOrCreate, existsAnyFile, upload_files
 from .worker import working
+from .models import Predictions
 from ..responses import Success
 from ..dependencies import get_exception_responses
 from ..exceptions import UnsupportedMediaTypeException, RequestEntityTooLargeException, \
@@ -15,17 +16,17 @@ router = APIRouter(prefix='/ml', tags=["ml"])
 
 @router.get(
     "/predict",
-    response_model=dict,
+    response_model=List[Predictions],
     responses=get_exception_responses(EmptyFileUploadException)
 )
-async def predict():
+async def predict(top: int = Query(default=1, gt=0, lt=6)):
     try:
         if not existsImageDirectoryOrCreate(create=True):
             working(UPLOAD_FOLDER)
 
         existsAnyFile()
 
-        predictions = get_model_predictions()
+        predictions = get_model_predictions(top)
     except BaseAPIException as e:
         raise e
     return predictions

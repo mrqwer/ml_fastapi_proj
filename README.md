@@ -26,26 +26,28 @@ Clone the project
 git clone git@github.com:mrqwer/ml_fastapi_proj.git
 ```
 
-Install dependencies
+Run the service in a container
 ```bash
-pip install -r requirements.txt
-```
-
-Run the service
-```bash
-uvicorn main:ml_app --reload
+docker compose up
 ```
 
 ## Go to the Documentation
 Try to upload png images and get the predictions of them
 http://127.0.0.1:8000/docs
-## API endpoints
-- /upload - for uploading multiple image files
-- /predict - for predicting previous uploaded images based on pretrained ResNet50 model.
+## API Reference
 
+#### Post a list of files through http multipart/form-data
 
-
-## To perform testing, run
-```bash
-pytest main.py
+```http
+  POST /ml/upload/
 ```
+#### Get predictions of uploaded files
+
+```http
+  GET /ml/predict/?top={top}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `top`     | `int`    | Get top k predictions. default=1  |
+
