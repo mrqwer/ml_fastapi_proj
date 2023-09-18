@@ -30,6 +30,7 @@ def upload_files(files: List[UploadFile]) -> None:
     for i, img in enumerate(files):
         filepath = os.path.join(UPLOAD_FOLDER, img.filename)
         with open(filepath, "wb") as buffer:
+            img.file.seek(0)
             shutil.copyfileobj(img.file, buffer)
         if not os.path.exists(filepath):
             raise FileUploadException

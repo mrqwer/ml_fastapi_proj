@@ -2,17 +2,10 @@ import tensorflow as tf
 
 
 def process_images(model, image_paths, size, preprocess_input, top_k=2) -> dict:
-    print("_-----------------------------------------------------------------")
-    print(image_paths)
-    print("_-----------------------------------------------------------------")
     d = {}
-    print("Image Path:", image_paths[0])
     for idx, image_path in enumerate(image_paths):
         # Read the image using TensorFlow.
         tf_image = tf.io.read_file(image_path)
-        # print("_-----------------------------------------------------------------")
-        # print(tf_image)
-        # print("_-----------------------------------------------------------------")
         # Decode the above `tf_image` from a Bytes string to a numeric Tensor.
         decoded_image = tf.image.decode_image(tf_image)
 

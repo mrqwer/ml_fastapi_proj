@@ -9,7 +9,7 @@ class BaseAPIException(Exception):
     @classmethod
     def response_model(cls) -> dict:
         js_response = {
-            cls.status_code: {"ml": cls.model, "description": cls.message}
+            cls.status_code: {"model": cls.model, "description": cls.message}
         }
         return js_response
 
@@ -33,4 +33,6 @@ class EmptyFileUploadException(BaseAPIException):
 
 
 class FileUploadException(BaseAPIException):
+    status_code: int = 400
+    message: str = "Bad Request"
     model = FileUpload

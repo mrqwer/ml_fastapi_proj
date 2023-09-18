@@ -31,5 +31,6 @@ class EmptyFileUpload(BaseError):
 
 
 class FileUpload(BaseError):
+    status_code: int = 400
     message: str = "File Upload Failed"
     error_code: int = 0
