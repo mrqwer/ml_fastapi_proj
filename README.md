@@ -15,7 +15,7 @@ docker compose up
 
 ## Go to the Documentation
 Try to upload png images and get the predictions of them
-http://127.0.0.1:8000/docs
+http://127.0.0.1:8080/docs
 ## API Reference
 
 #### Post a list of files through http multipart/form-data
@@ -33,3 +33,5 @@ http://127.0.0.1:8000/docs
 | :-------- | :------- | :-------------------------------- |
 | `top`     | `int`    | Get top k predictions. default=1  |
 
+
+## There are exceptions that return corresponding http statuses to client side
